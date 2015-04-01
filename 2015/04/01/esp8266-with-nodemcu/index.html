@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ESP8266 with NodeMcu | Groupsky&#39;s Hardware Endeavors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="NodeMCU is Lua based firmware for ESP8266. Long story short - instead of writing in C you are able to use Lua which allows for faster prototyping (at least in theory!).
+Pre-requisitesHardware
+ESP8266">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP8266 with NodeMcu">
+<meta property="og:url" content="http://groupsky.github.io/hwendeavors/2015/04/01/esp8266-with-nodemcu/index.html">
+<meta property="og:site_name" content="Groupsky's Hardware Endeavors">
+<meta property="og:description" content="NodeMCU is Lua based firmware for ESP8266. Long story short - instead of writing in C you are able to use Lua which allows for faster prototyping (at least in theory!).
+Pre-requisitesHardware
+ESP8266">
+<meta property="og:image" content="/hwendeavors/2015/04/01/esp8266-with-nodemcu/esp_bb.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ESP8266 with NodeMcu">
+<meta name="twitter:description" content="NodeMCU is Lua based firmware for ESP8266. Long story short - instead of writing in C you are able to use Lua which allows for faster prototyping (at least in theory!).
+Pre-requisitesHardware
+ESP8266">
+  
+    <link rel="alternative" href="/atom.xml" title="Groupsky&#39;s Hardware Endeavors" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/hwendeavors/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Groupsky&#39;s Hardware Endeavors</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A blog about ESP8266, Internet of Things and other smart devices</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://groupsky.github.io/hwendeavors"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-esp8266-with-nodemcu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hwendeavors/2015/04/01/esp8266-with-nodemcu/" class="article-date">
+  <time datetime="2015-03-31T21:00:00.000Z" itemprop="datePublished">2015-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ESP8266 with NodeMcu
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://nodemcu.com/index_en.html" target="_blank" rel="external">NodeMCU</a> is <a href="http://www.lua.org" target="_blank" rel="external">Lua</a> based firmware for <a href="https://espressif.com/en/products/esp8266" target="_blank" rel="external">ESP8266</a>. Long story short - instead of writing in C you are able to use Lua which allows for faster prototyping (at least in theory!).</p>
+<h2 id="Pre-requisites">Pre-requisites</h2><h3 id="Hardware">Hardware</h3><ul>
+<li><strong>ESP8266</strong> - <a href="https://www.olimex.com/Products/IoT/MOD-WIFI-ESP8266-DEV" target="_blank" rel="external">Olimex MOD-WIFI-ESP8266-DEV</a> is best for development - fits on breadboard and leaves 2 rows of pins, while the <a href="http://nodemcu.com/index_en.html#fr_54747661d775ef1a3600009e" target="_blank" rel="external">NodeMcu Development Kit</a> featuring integrated serial to usb cover a whole breadboard and you need to use jump wires instead of dupont wires. The other modules suitable for development are ESP-7, ESP-8 and ESP-12, but they don’t fit on standard breadboard so you want to order some adapter plates.</li>
+<li><strong>USB-UART cable</strong> - any serial cable should do, but there are some <a href="http://www.aliexpress.com/wholesale?SearchText=usb+uart+6pin" target="_blank" rel="external">modules with integrated 3V3 power supply</a></li>
+<li><strong>Power supply</strong> - it’s best to obtain a combined <a href="http://www.aliexpress.com/w/wholesale-mb102-power-supply.html?SearchText=mb102+power+supply&amp;CatId=4099" target="_blank" rel="external">3.3V and 5V power supply</a> as some components require 5V.</li>
+<li><strong>AC-DC adapter</strong> or <strong>USB cable</strong> - 5V@500mA or better, preferably 9V@1A. The ESP itself consumes up to 300mA so make sure you have enough supply or you will experience very strange behavior from the ESP.</li>
+<li><strong>Breadboard</strong> - any size will suffice</li>
+<li><strong>Dupont wires</strong> or <strong>Jump wires</strong> - mostly male-to-male, but some male-to-female should be available</li>
+<li>[OPT] <strong>Logic Level Converter</strong> - the more channels the better and definitely <a href="http://www.aliexpress.com/w/wholesale-logic-level-converter.html?SearchText=logic+level+converter&amp;CatId=502" target="_blank" rel="external">two-way</a></li>
+<li>[OPT] <strong>Switch buttons</strong> - just to ease entering flash mode and restart. The NodeMcu DevKit has those integrated</li>
+</ul>
+<h3 id="Software">Software</h3><ul>
+<li><strong>Text editor</strong> - anyone (except Notepad due to it’s notorious BOM). I’m big fan on <a href="http://atom.io/" target="_blank" rel="external">Atom IDE</a> so you may give it a try.</li>
+<li><strong>Serial Terminal</strong> - <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">PuTTY</a> for win, <a href="https://code.google.com/p/picocom/" target="_blank" rel="external">picocom</a> available in dep repos, mac - ???</li>
+<li><a href="https://github.com/4refr0nt/luatool" target="_blank" rel="external"><strong>luatool</strong></a> - for loading lua files</li>
+<li><a href="https://github.com/themadinventor/esptool" target="_blank" rel="external"><strong>esptool</strong></a> - for burning images</li>
+<li><a href="https://github.com/nodemcu/nodemcu-firmware/releases" target="_blank" rel="external"><strong>NodeMCU</strong></a> - just take the latest build</li>
+</ul>
+<h2 id="Setting_up">Setting up</h2><img src="/hwendeavors/2015/04/01/esp8266-with-nodemcu/esp_bb.png">
+<a href="/hwendeavors/2015/04/01/esp8266-with-nodemcu/esp.fzz" title="[Get the Fritzing file]">[Get the Fritzing file]</a>
+<p>The most important things to wire are (for Olimex module):</p>
+<ol>
+<li>Pin 1: 3.3V - power supply +3.3V</li>
+<li>Pin 2: GND - power supply GND</li>
+<li>Pin 3: GPIO1 - connect to UART TX</li>
+<li>Pin 4: GPIO3 - connect to UART RX</li>
+</ol>
+<p>On ESP-7,-8 and -12 you need to connect</p>
+<ol>
+<li>Pin 3: CH_PD - power supply +3.3V</li>
+<li>Pin 8: VCC - power supply +3.3V</li>
+<li>Pin 9: GND - power supply GND</li>
+<li>Pin 15: RXD - connect to UART TX</li>
+<li>Pin 16: TXD - connect to UART RX</li>
+</ol>
+<h2 id="Flashing_NodeMcu">Flashing NodeMcu</h2><ol>
+<li><a href="https://github.com/nodemcu/nodemcu-firmware/releases" target="_blank" rel="external">Download</a> the latest release. Integer version seems more stable for the moment.</li>
+<li>Connect GPIO0 (pin 21 on Olimex module) to power supply GND to enter flash mode</li>
+<li>Power on or restart the ESP module</li>
+<li><p>Flash the downloaded firmware</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esptool.py write_flash <span class="number">0</span>x00000 nodemcu_<span class="built_in">integer</span>_0.<span class="number">9.6</span>-dev_20150331.bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Start your terminal at baudrate <strong>9600bps</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">picocom -b <span class="number">9600</span> /dev/ttyUSB0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hit <code>Enter</code></p>
+</li>
+<li>You should see the lua prompt<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Now you’re ready to start develop.</p>
+<h2 id="Useful_resources">Useful resources</h2><ul>
+<li><a href="https://github.com/nodemcu/nodemcu-firmware/wiki/nodemcu_api_en" target="_blank" rel="external">NodeMcu API</a></li>
+<li><a href="https://github.com/esp8266/esp8266-wiki/wiki" target="_blank" rel="external">ESP8266 Wiki</a></li>
+<li><a href="http://www.esp8266.com/" target="_blank" rel="external">ESP8266 Comunity Forum</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://groupsky.github.io/hwendeavors/2015/04/01/esp8266-with-nodemcu/" data-id="ci7ys7o7y0000ntlsh40b36aw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/hwendeavors/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/hwendeavors/2015/04/01/esp8266-with-nodemcu/">ESP8266 with NodeMcu</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Geno Roupsky<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/hwendeavors/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/hwendeavors/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/hwendeavors/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
