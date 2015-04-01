@@ -70,3 +70,5 @@ deploy:
   type: git
   repo: git@github.com:groupsky/hwendeavors.git
   branch: gh-pages
+
+disqus_shortname: groupskyhwendeavors
